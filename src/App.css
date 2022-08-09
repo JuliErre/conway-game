@@ -1,8 +1,13 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
 }
 
 .logo {
@@ -38,4 +43,43 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.gameContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.gameHeader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
+}
+.cell{
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.cellAlive{
+  border-radius: 50%;
+  background-color: #42aff2;
+  border: 2px solid #ccc;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.cellRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

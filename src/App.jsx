@@ -4,8 +4,10 @@ import "./App.css";
 function App() {
   const [turn, setTurn] = useState(0);
   const [play, setPlay] = useState(false);
+  const [time, setTime] = useState(300);
 
   const timesRender = useRef(0);
+  
   const playRef = useRef(play);
   playRef.current = play;
 
@@ -157,7 +159,7 @@ function App() {
 
     const interval = setInterval(() => {
       checkNeighbors();
-    }, 300);
+    }, time);
     return () => {
       clearInterval(interval);
     };
@@ -187,6 +189,18 @@ function App() {
           <option value="2">30x20</option>
           <option value="3">70x40</option>
         </select>
+        <div className="range">
+          <input
+            type="range"
+            name="time"
+            id="time"
+            min="100"
+            max="2000"
+            onChange={(e) => setTime(e.target.value)}
+            defaultValue={300}
+          />
+          <span>{time}ms</span>
+        </div>
         <p>Generation # {turn}</p>
       </header>
       <div className="board">

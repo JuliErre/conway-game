@@ -5,12 +5,12 @@ function App() {
   const [turn, setTurn] = useState(0);
   const [play, setPlay] = useState(false);
   const [time, setTime] = useState(300);
+  const [firstTime, setFirstTime] = useState(true);
 
-  const timesRender = useRef(0);
-  
   const playRef = useRef(play);
   playRef.current = play;
 
+  //se declara el state de el tamano del tablero y los valores por defecto que puede tener dependiendo del usuario
   const [boardSize, setBoardSize] = useState(0);
   const sizes = [
     [50, 30],
@@ -26,12 +26,14 @@ function App() {
   useEffect(() => {
     // esto lo implemente porque tenia un problema con el localStorage, ya que apenas se renderiza pagina no se caragaba el localStorage
     // no se cargaba porque al cambiar el size, con el localStorage, el useEffect entraba a esta funcion y reseteaba el tablero
-    // tuve que ver cuantas veces se renderizaba apenas cargaba la pagina, y asi pude detectar que era 3 veces, entonces solo entra despues de las 3 veces del render, que van a ser cuando se presione el boton de reset
-    if (timesRender.current >= 3) {
-      resetGame();
-    }
-    // setTimesRender((prev) => prev + 1);
-    timesRender.current += 1;
+    // tuve que verificar que no sea la primera vez que entra al useEffect, ya que si es la primera vez, reinicia el tablero
+
+    setTimeout(() => {
+      if (!firstTime) {
+        resetGame();
+      }
+      setFirstTime(false);
+    }, 100);
   }, [boardSize]);
 
   // funcion para crear el tablero del juego
@@ -177,17 +179,17 @@ function App() {
           onChange={(e) =>
             setBoardSize((prevBoardSize) =>
               e.target.value != prevBoardSize && e.target.value != -1
-                ? e.target.value
+                ? Number(e.target.value)
                 : prevBoardSize
             )
           }
           defaultValue={-1}
         >
-          <option value="-1">Select a board size</option>
-          <option value="0">50x30</option>
-          <option value="1">10x5</option>
-          <option value="2">30x20</option>
-          <option value="3">70x40</option>
+          <option value={-1}>Select a board size</option>
+          <option value={0}>50x30</option>
+          <option value={1}>10x5</option>
+          <option value={2}>30x20</option>
+          <option value={3}>70x40</option>
         </select>
         <div className="range">
           <input
